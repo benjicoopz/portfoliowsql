@@ -1,6 +1,9 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
+from flask_sqlalchemy import SQLAlchemy 
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///projects.db'
+db = SQLAlchemy(app)
 
 
 @app.route("/")
@@ -15,7 +18,7 @@ def create():
 
 @app.route("/projects/<id>")
 def detail():
-    pass
+    return render_template('detail.html')
 
 
 @app.route('/about')
@@ -29,7 +32,7 @@ def edit():
 
 
 @app.route("/projects/<id>/delete")
-def delete():
+def delete(project_id):
     pass
 
 
