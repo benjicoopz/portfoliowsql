@@ -1,30 +1,37 @@
-from flask import Flask
-
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route("/")
 def index():
-    return 'Hello from Home Page'
+    return render_template('index.html')
 
-@app.route('/projects/new')
+
+@app.route("/projects/new")
 def create():
-    pass
+    return render_template('projectform.html')
 
-@app.route('/projects/<id>')
+
+@app.route("/projects/<id>")
 def detail():
     pass
 
-@app.route('/projects/<id>/edit')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+
+@app.route("/projects/<id>/edit")
 def edit():
     pass
 
-@app.route('/projects/<id>/delete')
+
+@app.route("/projects/<id>/delete")
 def delete():
     pass
 
 
-
-if __name__ == '__main__':
-    app.run(debug=True, port=8000, host='0.0.0.0')
+if __name__ == "__main__":
+    app.run(debug=True, port=8000, host="0.0.0.0")
