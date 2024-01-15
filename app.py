@@ -3,7 +3,8 @@ from models import db, Project, app
 
 @app.route("/")
 def index():
-    return render_template('index.html')
+    projects = Project.query.all()
+    return render_template('index.html', projects=projects)
 
 
 @app.route("/projects/new", methods=['GET', 'POST'])
@@ -19,7 +20,7 @@ def create():
 
 
 @app.route("/projects/<id>")
-def detail():
+def detail(id):
     return render_template('detail.html')
 
 
