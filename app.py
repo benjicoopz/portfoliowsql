@@ -1,10 +1,5 @@
-from flask import Flask, render_template, url_for, request
-from flask_sqlalchemy import SQLAlchemy 
-
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///projects.db'
-db = SQLAlchemy(app)
-
+from flask import render_template, url_for, request, redirect
+from models import db, Project, app
 
 @app.route("/")
 def index():
@@ -13,7 +8,13 @@ def index():
 
 @app.route("/projects/new", methods=['GET', 'POST'])
 def create():
-    print(request.form)
+    if request.form:
+        print(request.form)
+        new_proj = Project(title=request.form['title'], date=request.form['date'], descrip=request.form['desc'],
+                           skills=request.form['skills'], ghlink=request.form['github'])
+        db.session.add(new_proj)
+        db.session.commit()
+        return redirect(url_for('index'))
     return render_template('projectform.html')
 
 
@@ -38,4 +39,6 @@ def delete(project_id):
 
 
 if __name__ == "__main__":
+    app.app_context().push()
+    db.create_all()
     app.run(debug=True, port=8000, host="0.0.0.0")
