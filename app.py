@@ -21,7 +21,9 @@ def create():
 
 @app.route("/projects/<id>")
 def detail(id):
-    return render_template('detail.html')
+    project = Project.query.get(id)
+    project.skills = project.skills.split(',')
+    return render_template('detail.html', project=project)
 
 
 @app.route('/about')
