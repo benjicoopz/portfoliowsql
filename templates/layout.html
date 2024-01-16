@@ -30,14 +30,13 @@
                         <a class="nav-link" href="{{ url_for('index') }}#skills">Skills</a>
                       </li>
                       <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="{{ url_for('index') }}#project" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                           Projects
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <li><a class="dropdown-item" href="{{ url_for('index') }}#project1">Project 1</a></li>
-                          <li><a class="dropdown-item" href="{{ url_for('index') }}#project2">Project 2</a></li>
-                          <li><a class="dropdown-item" href="{{ url_for('index') }}#project3">Project 3</a></li>
-                          <li><a class="dropdown-item" href="{{ url_for('index') }}#project4">Project 4</a></li>
+                          {% for project in projects %}
+                            <li><a class="dropdown-item" href="{{ url_for('detail', id=project.id) }}">{{ project.title }}</a></li>
+                          {% endfor %}
                         </ul>
                       </li>
                       <li class="nav-item">
