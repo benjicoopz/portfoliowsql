@@ -23,4 +23,3 @@ class Project(db.Model):
                             Skills: {self.skills}
                             GitHub Link: {self.ghlink}'''
 
-    

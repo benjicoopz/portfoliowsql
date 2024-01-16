@@ -31,14 +31,26 @@ def about():
     return render_template('about.html')
 
 
-@app.route("/projects/<id>/edit")
-def edit():
-    pass
+@app.route("/projects/<id>/edit", methods=['GET', 'POST'])
+def edit(id):
+    project = Project.query.get(id)
+    if request.form:
+        project.title = request.form['title']
+        project.date = request.form['date']
+        project.descrip = request.form['desc']
+        project.skills = request.form['skills']
+        project.ghlink = request.form['github']
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('editproject.html', project=project)
 
 
 @app.route("/projects/<id>/delete")
-def delete(project_id):
-    pass
+def delete(id):
+    project = Project.query.get(id)
+    db.session.delete(project)
+    db.session.commit()
+    return redirect(url_for('index'))
 
 
 if __name__ == "__main__":
